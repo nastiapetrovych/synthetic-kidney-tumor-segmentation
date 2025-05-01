@@ -17,7 +17,9 @@ To explore whether injecting synthetic kidney tumors into real CT scans can impr
 
 
 
-> Note: The repository contains one model's code and single sample dataset to comply with healthcare data privacy restrictions.
+> Note: We cannot provide access to complete dataset due to healthcare data privacy restrictions, therefore only one .nii.gz file is included as an example.
+
+If further details are required, please contact me at anastasiia.petrovych@ucu.edu.ua.
 
 
 ## 📁 Project Structure
@@ -61,6 +63,8 @@ To explore whether injecting synthetic kidney tumors into real CT scans can impr
 
 ## How to start
 
+> Note: To run the majority of scripts in this repository (including model training and inference), high-computing resources with NVIDIA A100 GPU. In our case, we use a high-performance computing (HPC) cluster of University of Tartu.
+
 1. Clone this repository to local environemnt.
 
 2. Install Python requirements.
@@ -96,6 +100,13 @@ If you want to run 2.5D model -> navigate to `2.5D_model/`.
 If you want to run Copy-paste augmentation -> navigate to `copy_paste_augmentation/`.
 
 
+### Files on Google Drive
+
+Model checkpoint and dataset sample files exceed the limit of GitHub files (100MB), so they were uploaded to Google Drive.
+Download the following files by this link: https://drive.google.com/drive/folders/1ZoGpWzeFLITlxsb92CdHcDxVw3Q5L91p 
+
+
+
 ## Solution
 
 The proposed approach includes a systematic comparison between copy-paste augmentation and generative models, with a particular focus on diffusion-based methods. To address the problem of the limited amount of annotated data, we adopt multiple strategies: (1) optimal training-validation-test data splitting, (2) fine-tuning of pretrained models on new datasets, (3) copy-paste augmentation, (4) synthetic data generation using 2D diffusion models, and (5) synthetic data generation using 2.5D diffusion models. The results of every approach are validated, using standard segmentation metrics, on a held-out test set to ensure fair comparison and reproducibility.
@@ -106,23 +117,17 @@ The proposed pipeline, illustrated on Figure 1, provides an overview of all majo
 *Figure 1. Overview of the proposed pipeline. Real clinical data from Estonian hospitals A and B is used.*
 
 
-### Copy-paste augmentation
+### Synthetic Data Generation Approaches
 
-The mostnaive approach togenerating synthetic data is thecopy-paste augmentation, which inserts real tumor patches, a 3D region containing the tumor and surrounding tissue, from annotated cases into "clean" CT scans from Dataset B. First, both the source and target scans are reoriented to a standard medical imaging orientation known as RAS (Right, Anterior, Superior), and resampled to match slice thickness along the axial axis. During resampling, interpolation is applied to adjust voxel spacing and ensure consistent resolution across volumes, which prevents inserted tumors from appearing or disappearing abruptly across slices, maintaining realistic anatomical continuity in the resulting CT scans.
-
-For each extracted tumor patch we randomly select either the left or right kidney in the target scan as the insertion area. To guide realistic placement, we apply edge detection on a representative slice of the selected kidney, identifying its boundary. A point within the detected boundary is then randomly chosen as the initial placement location for the tumor to ensure correct position. The tumor is extracted from the source scan using the binary tumor mask and shifted to align with the selected kidney edge in the target scan. Further alignment is done along the z-axis to match anatomical depth if needed. The tumor is then inserted into the clean scan by overwriting voxel intensities in the target volume, and the segmentation mask is updated to include the corresponding tumor label. The result of this approach is shown by Figure 2.
+This section outlines three ways to create realistic tumor-bearing CT scans from clean images. The simplest method, copy-paste augmentation, takes real 3D tumor patches (including a bit of surrounding tissue), aligns and resamples them to match a clean scan, then pastes them into a randomly chosen kidney region—using edge detection to find a natural spot—and updates the scan’s pixel values and mask. The second method uses a 2D diffusion model (a fine-tuned DDPM) that “inpaints” tumors onto individual CT slices by filling in user-provided masks with textures and shapes learned from real tumors. Finally, the 2.5D diffusion model improves on this by feeding three consecutive slices (only one of which is masked) through the network in sequence, so the generated tumors stay coherent across adjacent slices; the newly created regions are then stitched back into the full volume for smooth, anatomically consistent results. Examples of outputs can be seen on Figure 2.
 
 ![Tumors](tumors.png)
 *Figure 2. Comparison of original CT scans and synthetic tumor generation results. The top row presents the original scan with a tumor, the copy-paste augmentation output, the 2D diffusion model output, and the 2.5D diffusion model output. The bottom row shows the same scans with tumor regions highlighted in red for clarity.*
 
 
-### Baseline Model Performance
+### Segmentation Model Performance
 
-As a starting point, a baseline nnU-Net model is trained on a combined dataset consisting of KiTS, KIRC, and the training part of Dataset A. Although Dataset A also includes a test set, in this setup the combined dataset is referred to as the source dataset, while Dataset B serves as the target dataset.
-After training, the model is first evaluated on the testing set of Dataset A, achieving a DSC of 0.86 and an IoU of 0.81. Out of 99 tumor cases, 94 are correctly detected, with only 5 false positives among the 93 tumor-free scans. An example of the segmentation model’s predictions compared to ground truth annotations is shown in Figure 3.1.
-To assess the model’s ability to generalise, it is also evaluated on the Dataset B Split I test set. The performance drops substantially here, with a DSC of 0.07 and an IoU of 0.06. The number of false positives increases to 80, and only 6 tumors are correctly detected.
-These results support the core hypothesis of this research that a model trained on one data distribution does not necessarily generalise well to another. In this case,
-Dataset B represents a healthier population with fewer pathological cases, contributing to the drop in segmentation accuracy and the rise in false positives. Furthermore, differences in CT acquisition parameters between the source and target datasets further widen the performance gap, emphasising the need for domain adaptation. A logical next step is to fine-tune the pretrained models on Dataset B to align them with the unseen data distribution better.
+We evaluated kidney tumor segmentation using nnU-Net across four datasets: KiTS, KIRC, and two clinical collections (Datasets A and B). Our baseline model—trained on KiTS, KIRC, and Dataset A—achieved strong results on Dataset A, DSC **0.86**, IoU **0.81**, but failed to generalise to Dataset B, DSC **0.07**, IoU **0.06**, highlighting domain shifts and class imbalance. Fine-tuning on Dataset B alone proved ineffective due to its scarcity of tumors, even when merged with source data. To address this, we introduced synthetic scans via copy-paste augmentation, 2D diffusion, and 2.5D diffusion models. Copy-paste augmentation yielded modest gains, DSC **0.10**, IoU **0.09** on Split II, whereas diffusion-based methods underperformed. Finally, combining source data with Dataset B plus copy-paste-generated scans improved detection, DSC **0.09**, IoU **0.08**, four out of six tumors detected, confirming that simple synthetic augmentation can partially mitigate distribution gaps and class imbalance.
 
 ![Segmentation masks](segmentation_masks_upd.png)
 *Figure 3. Visual examples of segmentation results on CT slices of Dataset B. Green contours represent the ground truth tumor masks, and pink contours represent the model’s predictions. The pink area indicates a false positive if no green contour is present. DSC and IoU scores are provided for each case.*
