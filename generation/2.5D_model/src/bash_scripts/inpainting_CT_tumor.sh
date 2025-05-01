@@ -1,7 +1,6 @@
 #!/bin/bash
 #SBATCH -o experiments/inpainting_CT_tumor_kits_windowed.log
 #SBATCH -J tumor_inpainting
-#SBATCH -A revvity
 #SBATCH --partition=gpu
 #SBATCH --gres=gpu:a100-80g:4
 #SBATCH -t 120:00:00
@@ -10,14 +9,8 @@
 #SBATCH --exclude=falcon3,falcon2
 
 module load any/python/3.8.3-conda
+conda activate nnunet
 
-conda activate /gpfs/space/home/sedykh/.conda/envs/imgx
+cd Palette-Image-to-Image-Diffusion-Models
 
-/gpfs/space/home/sedykh/.conda/envs/imgx/bin/pip install torch
-
-cd /gpfs/space/home/sedykh/BCV/Palette-Image-to-Image-Diffusion-Models
-
-
-/gpfs/space/home/sedykh/.conda/envs/imgx/bin/python3 run.py -c config/inpainting_tumor_kits.json -gpu 0,1,2,3 -b 4
-
-#a100-80g
+python run.py -c config/inpainting_tumor_kits.json -gpu 0,1,2,3 -b 4
