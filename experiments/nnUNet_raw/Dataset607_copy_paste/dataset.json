@@ -1,0 +1,13 @@
+{
+    "channel_names": {
+        "0": "HospitalBWithCopyPasteMethod"
+    },
+    "labels": {
+        "background": 0,
+        "kidney": 1,
+        "tumor": 2,
+        "cyst": 3
+    },
+    "numTraining": 451,
+    "file_ending": ".nii.gz"
+}

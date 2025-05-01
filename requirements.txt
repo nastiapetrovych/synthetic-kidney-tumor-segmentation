@@ -1,0 +1,18 @@
+numpy==1.26.4
+pandas==2.2.3
+tqdm==4.67.0
+
+# Medical image handling
+nibabel==5.3.2
+imageio==2.36.0
+torchio==0.20.3
+
+# PyTorch
+torch==2.5.1+cu121
+
+# Segmentation framework
+nnunet==1.7.1
+-e git+https://github.com/MIC-DKFZ/nnUNet.git@43349fa5f0680e8109a78dca7215c19e258c9dd7#egg=nnunetv2
+
+opencv-python==4.10.0.84
+nvidia-ml-py==12.570.86
