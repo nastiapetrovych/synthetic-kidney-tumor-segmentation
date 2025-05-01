@@ -75,7 +75,7 @@ Send SLURM job.
 sbatch segmentation/train_model.bash
 ```
 
-Wait until the model is trained.
+Wait until the model is trained. The example of my pre-trained checkpoint [Dataset607 best checkpoint](https://drive.google.com/file/d/1h4NlAF55b0y9a3DNZLXnsE80d-qGWw8e/view?usp=sharing)
 
 4. Run inference to get results.
 
