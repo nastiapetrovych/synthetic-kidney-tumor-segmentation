@@ -82,7 +82,7 @@ The mostnaive approach togenerating synthetic data is thecopy-paste augmentation
 For each extracted tumor patch we randomly select either the left or right kidney in the target scan as the insertion area. To guide realistic placement, we apply edge detection on a representative slice of the selected kidney, identifying its boundary. A point within the detected boundary is then randomly chosen as the initial placement location for the tumor to ensure correct position. The tumor is extracted from the source scan using the binary tumor mask and shifted to align with the selected kidney edge in the target scan. Further alignment is done along the z-axis to match anatomical depth if needed. The tumor is then inserted into the clean scan by overwriting voxel intensities in the target volume, and the segmentation mask is updated to include the corresponding tumor label. The result of this approach is shown by Figure 2.
 
 ![Tumors](tumors.png)
-*Figure 1. Comparison of original CT scans and synthetic tumor generation results. The top row presents the original scan with a tumor, the copy-paste augmentation output, the 2D diffusion model output, and the 2.5D diffusion model output. The bottom row shows the same scans with tumor regions highlighted in red for clarity.*
+*Figure 2. Comparison of original CT scans and synthetic tumor generation results. The top row presents the original scan with a tumor, the copy-paste augmentation output, the 2D diffusion model output, and the 2.5D diffusion model output. The bottom row shows the same scans with tumor regions highlighted in red for clarity.*
 
 
 ### Baseline Model Performance
