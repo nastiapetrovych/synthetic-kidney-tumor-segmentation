@@ -1,0 +1,42 @@
+{
+    "/gpfs/space/projects/BetterMedicine/nastiap/pre-trained_model/parnu/test_dataset_half_tumors/labelsTr/2.25.163842413941737269645058588119905796673_0000.nii.gz": {
+        "Dice": 0.0,
+        "FN": 0,
+        "FP": 4,
+        "IoU": 0.0,
+        "TN": 349700092,
+        "TP": 0,
+        "n_pred": 4,
+        "n_ref": 0
+    },
+    "/gpfs/space/projects/BetterMedicine/nastiap/pre-trained_model/parnu/test_dataset_half_tumors/labelsTr/2.25.227898955332086796376777559039216658808_0000.nii.gz": {
+        "Dice": 0.0,
+        "FN": 0,
+        "FP": 14,
+        "IoU": 0.0,
+        "TN": 392429554,
+        "TP": 0,
+        "n_pred": 14,
+        "n_ref": 0
+    },
+    "/gpfs/space/projects/BetterMedicine/nastiap/pre-trained_model/parnu/test_dataset_half_tumors/labelsTr/2.25.27044995790301809069347259125649452745_0000.nii.gz": {
+        "Dice": 0.0,
+        "FN": 0,
+        "FP": 8,
+        "IoU": 0.0,
+        "TN": 392429560,
+        "TP": 0,
+        "n_pred": 8,
+        "n_ref": 0
+    },
+    "/gpfs/space/projects/BetterMedicine/nastiap/pre-trained_model/parnu/test_dataset_half_tumors/labelsTr/2.25.310604180140141586844675428260475996022_0000.nii.gz": {
+        "Dice": 0.0,
+        "FN": 0,
+        "FP": 2,
+        "IoU": 0.0,
+        "TN": 348389374,
+        "TP": 0,
+        "n_pred": 2,
+        "n_ref": 0
+    }
+}

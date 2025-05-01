@@ -109,6 +109,7 @@ def select_kidney(vol_left, vol_right, min_vol=10000):
 
 def parnu_with_tumors(images_dir, labels_dir, tumor_dir, output_dir):
     os.makedirs(output_dir, exist_ok=True)
+
     for file in tqdm.tqdm(os.listdir(images_dir)):
         if not file.endswith('_0000.nii.gz'):
             continue
@@ -116,10 +117,13 @@ def parnu_with_tumors(images_dir, labels_dir, tumor_dir, output_dir):
         ct_path = os.path.join(images_dir, file)
         label_path = os.path.join(labels_dir, f'{subject_id}.nii.gz')
         subj_dir = os.path.join(output_dir, subject_id)
+
         if os.path.exists(os.path.join(subj_dir, 'tumor_1.nii.gz')):
             logging.info(f"Skipping {subject_id}, already processed.")
             continue
+
         os.makedirs(subj_dir, exist_ok=True)
+
         ct_img = make_affine_positive(nib.load(ct_path))
         resampled_data, resampled_affine = resample_image(ct_img)
         ct_img = nib.Nifti1Image(resampled_data, resampled_affine)
@@ -127,10 +131,13 @@ def parnu_with_tumors(images_dir, labels_dir, tumor_dir, output_dir):
         left, right = split_kidneys(kidney_data)
         vol_left, vol_right = calculate_volume(left), calculate_volume(right)
         choice = select_kidney(vol_left, vol_right)
+
         if not choice:
             logging.info(f"{subject_id}: insufficient kidney volume.")
             continue
+
         logging.info(f"{subject_id}: injecting into {choice} kidney(s)")
+
         for var in range(1, 3):
             for side in (["left", "right"] if choice == "both" else [choice]):
                 tumor_file = random.choice(os.listdir(tumor_dir))

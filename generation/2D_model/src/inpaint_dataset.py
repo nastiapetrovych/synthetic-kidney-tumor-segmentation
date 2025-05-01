@@ -21,7 +21,7 @@ def get_output_dirs(base_dir):
 
 BACKGROUND, KIDNEYAREA, TUMOR, CYST = 0, 1, 2, 3
 WINDOW_CENTER, WINDOW_WIDTH = 40, 400
-TARGET_SHAPE = (256, 256)
+TARGET_SHAPE = (512, 512)
 
 
 def window_and_normalize(image, center, width):

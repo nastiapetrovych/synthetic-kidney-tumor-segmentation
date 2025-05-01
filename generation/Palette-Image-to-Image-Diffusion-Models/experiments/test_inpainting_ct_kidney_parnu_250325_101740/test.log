@@ -1,0 +1,18 @@
+25-03-25 10:17:41.704 - INFO: Create the log file in directory experiments/test_inpainting_ct_kidney_parnu_250325_101740.
+
+25-03-25 10:17:46.560 - INFO: Dataset [InpaintDataset_CT_kidney() form data.dataset] is created.
+25-03-25 10:17:46.560 - INFO: Dataset for test have 3523 samples.
+25-03-25 10:17:47.141 - INFO: Network [Network() form models.network] is created.
+25-03-25 10:17:47.141 - WARNING: Config is a str, converts to a dict {'name': 'mae'}
+25-03-25 10:17:49.184 - INFO: Metric [mae() form models.metric] is created.
+25-03-25 10:17:49.184 - WARNING: Config is a str, converts to a dict {'name': 'mse_loss'}
+25-03-25 10:17:49.185 - INFO: Loss [mse_loss() form models.loss] is created.
+25-03-25 10:17:49.792 - INFO: Beign loading pretrained model [Network] ...
+25-03-25 10:17:49.927 - INFO: Loading pretrained model from [/gpfs/space/projects/PerkinElmer/Kate_CT_data/2d_tumor_inpaint_weights/325_Network.pth] ...
+25-03-25 10:17:50.983 - INFO: Beign loading pretrained model [Network_ema] ...
+25-03-25 10:17:50.984 - INFO: Loading pretrained model from [/gpfs/space/projects/PerkinElmer/Kate_CT_data/2d_tumor_inpaint_weights/325_Network_ema.pth] ...
+25-03-25 10:17:51.929 - INFO: Model [Palette() form models.model] is created.
+25-03-25 10:17:51.929 - INFO: Begin model test.
+25-03-25 20:04:09.721 - INFO: test/mae: 0.0038267255295068026	
+25-03-25 20:04:09.721 - INFO: epoch: 0	
+25-03-25 20:04:09.721 - INFO: iters: 3523	

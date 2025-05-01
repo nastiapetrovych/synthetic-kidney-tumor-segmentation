@@ -1,0 +1,12 @@
+{
+    "/gpfs/space/projects/BetterMedicine/nastiap/pre-trained_model/parnu/test_dataset_half_tumors/labelsTr/2.25.12551514152586389191573299084630843894_0000.nii.gz": {
+        "Dice": 0.8897298491796033,
+        "FN": 7806,
+        "FP": 178,
+        "IoU": 0.8013633875702841,
+        "TN": 243491582,
+        "TP": 32210,
+        "n_pred": 32388,
+        "n_ref": 40016
+    }
+}

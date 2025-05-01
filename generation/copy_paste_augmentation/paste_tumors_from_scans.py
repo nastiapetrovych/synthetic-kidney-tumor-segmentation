@@ -24,8 +24,10 @@ def load_nifti_data(path):
 
 
 def resample_image(image, target_spacing, original_spacing):
-    zoom_factors = [1, 1, original_spacing / target_spacing]  # Resample only along Z-axis
-    return ndimage.zoom(image, zoom_factors, order=1)  # Linear interpolation
+    # Resample only along Z-axis
+    zoom_factors = [1, 1, original_spacing / target_spacing]
+    # Linear interpolation
+    return ndimage.zoom(image, zoom_factors, order=1)
 
 
 def get_tumor_center(segmentation, case_spacing, control_spacing):
@@ -33,12 +35,13 @@ def get_tumor_center(segmentation, case_spacing, control_spacing):
     labeled, num_features = ndimage.label(tumor_mask.astype(int))
 
     if num_features != 1:
-        return None, None  # Skip ambiguous cases
+        # Skip ambiguous cases
+        return None, None
 
     center = ndimage.center_of_mass(tumor_mask, labeled, [1])[0]
     tumor_center = list(map(int, center))
-    tumor_center[2] = int(round(tumor_center[2] * (case_spacing / control_spacing)))  # Adjust Z
-
+    # Adjust Z
+    tumor_center[2] = int(round(tumor_center[2] * (case_spacing / control_spacing)))
     return tumor_mask, tumor_center
 
 
