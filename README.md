@@ -46,13 +46,6 @@ To explore whether injecting synthetic kidney tumors into real CT scans can impr
 │   ├── check_file_corrupted.py      # Check for corrupted CT or mask files
 │   └── get_correctly_detected_tumors.py  # Evaluate tumor detection performance
 
-├── metrics/                         # Quantitative results and evaluation metrics
-│   ├── dataset_a/
-│   ├── dataset_b_split_I/
-│   └── dataset_b_split_II/
-
-├── models/                          # Trained model checkpoints and weights
-
 ├── segmentation/                    # nnU-Net training and inference scripts
 │   ├── nnUNet/                      # nnU-Net framework
 │   ├── train_model.bash             # Training model script
