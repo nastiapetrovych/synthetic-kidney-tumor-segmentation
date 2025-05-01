@@ -9,11 +9,12 @@ This research was conducted as part of the undergraduate thesis of Anastasiia Pe
 ## 🧠 Thesis Goal
 To explore whether injecting synthetic kidney tumors into real CT scans can improve the accuracy and flexibility of segmentation models. The research examines:
 
-  The effectiveness of various synthetic tumor generation methods
+* The effectiveness of various synthetic tumor generation methods
   
-  Performance changes in nnU-Net models trained on augmented datasets
+* Performance changes in nnU-Net models trained on augmented datasets
   
-  Visual and quantitative evaluation of segmentation results
+* Visual and quantitative evaluation of segmentation results
+
 
 
 > Note: The repository contains one model's code and single sample dataset to comply with healthcare data privacy restrictions.
@@ -56,6 +57,43 @@ To explore whether injecting synthetic kidney tumors into real CT scans can impr
 ├── requirements.txt                 # List of Python dependencies
 └── README.md                        # Project documentation
 ```
+
+
+## How to start
+
+1. Clone this repository to local environemnt.
+
+2. Install Python requirements.
+```bash
+pip install requirements.txt
+```
+
+3. Train the model.
+
+Send SLURM job.
+```bash
+sbatch segmentation/train_model.bash
+```
+
+Wait until the model is trained.
+
+4. Run inference to get results.
+
+Send SLURM job.
+```bash
+sbatch segmentation/inference_model.bash
+```
+
+
+### If you want to try generations:
+
+Go to `generation/` folder.
+
+If you want to run 2D model -> navigate to `2D_model/`.
+
+If you want to run 2.5D model -> navigate to `2.5D_model/`.
+
+If you want to run Copy-paste augmentation -> navigate to `copy_paste_augmentation/`.
 
 
 ## Solution
