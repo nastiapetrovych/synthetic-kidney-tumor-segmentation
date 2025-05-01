@@ -20,7 +20,7 @@ To explore whether injecting synthetic kidney tumors into real CT scans can impr
 ## 📁 Project Structure
 
 
-
+```
 .
 ├── data/                            # Metadata and filtered dataset information
 │   ├── filtered_hospital_a_tumors.csv
@@ -60,3 +60,4 @@ To explore whether injecting synthetic kidney tumors into real CT scans can impr
 
 ├── requirements.txt                 # List of Python dependencies
 └── README.md                        # Project documentation
+```
